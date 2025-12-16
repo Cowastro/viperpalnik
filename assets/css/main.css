@@ -4753,18 +4753,96 @@ input, select, textarea {
   text-align: left;
 }
 
+/* Кнопка: железно по центру */
 #kontakt .actions {
-  text-align: center;
   margin-top: 2em;
+  display: flex;
+  justify-content: center;
+}
+
+#kontakt .actions li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 #kontakt .actions input {
-  width: auto;          /* ВАЖНО */
+  width: auto;
   min-width: 220px;
   padding: 0 2.5em;
+  text-align: center;
 }
 
-/* VIPER – footer mobile spacing */
+/* ===== Simple footer contact (mobile safe) ===== */
+.contact-simple {
+  text-align: center;
+}
+
+.contact-simple h3 {
+  font-size: 1.35em;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  margin-bottom: 1.5rem;
+}
+
+.contact-simple .contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.25rem 0;
+}
+
+.contact-simple .contact-list li {
+  margin-bottom: 2rem;
+}
+
+.contact-simple strong {
+  display: block;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+/* значения контактов */
+.contact-simple a,
+.contact-simple .contact-list li {
+  font-size: 1.15em;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.contact-simple a {
+  border-bottom: none;
+}
+
+/* телефон — главный акцент */
+.contact-simple a[href^="tel"] {
+  font-size: 1.35em;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+/* email — чтобы не рвало на мобиле */
+.contact-simple a[href^="mailto"] {
+  word-break: break-word;
+}
+
+/* иконки соцсетей */
+.contact-simple .icons {
+  margin-top: 1.5rem;
+}
+
+.contact-simple .icons li a {
+  opacity: 0.85;
+}
+
+.contact-simple .icons li a:hover {
+  opacity: 1;
+}
+
+/* ===== VIPER – footer mobile spacing ===== */
 @media screen and (max-width: 736px) {
 
   #footer #kontakt header.major h2 {
@@ -4790,56 +4868,27 @@ input, select, textarea {
     height: 3.25rem;
   }
 
+  /* кнопка на мобиле — красиво и не “кирпич” */
   #footer .actions.special {
     margin-top: 0.25rem;
   }
 
   #footer .actions.special .primary {
     width: 100%;
-    max-width: 22rem; /* чтобы не было “кирпича” */
+    max-width: 22rem;
   }
-}
 
-/* FIX: Footer contact "table" on mobile (Massively) */
+/* мобильная версия */
 @media screen and (max-width: 736px) {
-
-  /* делаем каждый блок контакта вертикальным */
-  #footer > section.split.contact > section {
-    display: block !important;
-    padding: 1.5rem 0 !important;   /* аккуратнее, чем 2rem */
-  }
-
-  /* убираем фиксированную ширину "колонки" */
-  #footer > section.split.contact > section > :first-child {
-    width: auto !important;
-  }
-
-  /* заголовки слева, без странных отступов */
-  #footer > section.split.contact h3 {
-    margin: 0 0 0.5rem 0 !important;
-    letter-spacing: 0.08em;
-  }
-
-  /* текст и ссылки нормально переносятся */
-  #footer > section.split.contact p {
-    margin: 0 !important;
-    text-align: left;
-  }
-
-  #footer > section.split.contact a {
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
-
-  /* Social: по центру и без "прыжков" */
-  #footer > section.split.contact ul.icons {
-    margin: 0.75rem 0 0 0 !important;
-    padding-left: 0 !important;
-    text-align: center;
-  }
-
-  #footer > section.split.contact ul.icons li {
-    padding: 0 0.4rem 0 0 !important;
+  .contact-simple h3 {
+    font-size: 1.7em;
+    margin-bottom: 2rem;
   }
 }
+
+  .contact-simple a[href^="tel"] {
+    font-size: 1.2em;
+  }
+}
+
 
