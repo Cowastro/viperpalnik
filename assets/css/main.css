@@ -4687,27 +4687,116 @@ input, select, textarea {
 		}
 
 	}
-	.faq-item details {
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  padding: 1em 0;
+/* FAQ (VIPER) */
+.faq-item details {
+  border-bottom: 1px solid rgba(33, 41, 49, 0.15);
+  padding: 1.1rem 0;
 }
 
 .faq-item summary {
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 900;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
   list-style: none;
+  line-height: 1.4;
+  padding-right: 2rem;
+  position: relative;
 }
 
 .faq-item summary::-webkit-details-marker {
   display: none;
 }
 
-.faq-item summary::after {
+.faq-item summary:after {
   content: "+";
-  float: right;
-  font-size: 1.2em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: #2ecc71;
 }
 
-.faq-item details[open] summary::after {
+.faq-item details[open] summary:after {
   content: "–";
 }
+
+.faq-item details p {
+  margin: 1rem 0 0 0;
+  text-align: left;
+}
+
+/* ===== VIPER – Kontakt form alignment ===== */
+
+#kontakt form {
+  max-width: 420px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#kontakt .field {
+  margin-bottom: 1.5em;
+}
+
+#kontakt label {
+  display: block;
+  margin-bottom: 0.5em;
+  letter-spacing: 0.15em;
+}
+
+#kontakt input[type="text"],
+#kontakt input[type="tel"] {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+#kontakt .actions {
+  text-align: center;
+  margin-top: 2em;
+}
+
+#kontakt .actions input {
+  width: auto;          /* ВАЖНО */
+  min-width: 220px;
+  padding: 0 2.5em;
+}
+
+/* VIPER – footer mobile spacing */
+@media screen and (max-width: 736px) {
+
+  #footer #kontakt header.major h2 {
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  #footer #kontakt header.major p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  #footer #kontakt .fields {
+    margin-bottom: 1.25rem;
+  }
+
+  #footer #kontakt .field label {
+    margin-bottom: 0.5rem;
+  }
+
+  #footer #kontakt input[type="text"],
+  #footer #kontakt input[type="tel"] {
+    height: 3.25rem;
+  }
+
+  #footer .actions.special {
+    margin-top: 0.25rem;
+  }
+
+  #footer .actions.special .primary {
+    width: 100%;
+    max-width: 22rem; /* чтобы не было “кирпича” */
+  }
+}
+
