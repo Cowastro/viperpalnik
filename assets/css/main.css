@@ -4878,14 +4878,6 @@ input, select, textarea {
     max-width: 22rem;
   }
 
-/* мобильная версия */
-@media screen and (max-width: 736px) {
-  .contact-simple h3 {
-    font-size: 1.7em;
-    margin-bottom: 2rem;
-  }
-}
-
   .contact-simple a[href^="tel"] {
     font-size: 1.2em;
   }
