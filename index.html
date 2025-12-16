@@ -1,242 +1,466 @@
 <!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VIPER – Palniki pelletowe</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VIPER – Palniki pelletowe | Modernizacja kotłowni w całej Polsce</title>
+  <meta name="description" content="VIPER – palniki pelletowe nowej generacji. Opatentowana technologia spalania pelletu. Modernizacja kotłowni bez wymiany całego kotła. Praca już od 10% mocy." />
+  <meta name="theme-color" content="#0b0f19" />
+  <link rel="icon" href="viper_logo.png" />
 
-  <meta name="description" content="VIPER – Palniki pelletowe. Opatentowana technologia spalania pelletu. Polska.">
-  <meta name="theme-color" content="#c1121f">
-  <meta name="robots" content="noindex,nofollow">
-
-  <!-- auto redirect after 5 seconds -->
-  <meta http-equiv="refresh" content="5;url=https://abcpelletu.pl/">
-
-  <link rel="icon" href="viper_logo.png">
+  <!-- Open Graph -->
+  <meta property="og:title" content="VIPER – Palniki pelletowe" />
+  <meta property="og:description" content="Opatentowana technologia spalania pelletu. Modernizacja kotłowni w całej Polsce. Praca już od 10% mocy." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://viperpalnik.pl/" />
 
   <style>
     :root{
-      --accent:#c1121f;
-      --ink:#1d1d1f;
-      --muted:#6b7280;
-      --card:#ffffff;
-      --bg:#f7f7f8;
-      --ring:#ececec
+      --bg:#070a12;
+      --panel:#0b0f19;
+      --card:#0f1526;
+      --text:#e8eefc;
+      --muted:#a8b3cf;
+      --line:rgba(255,255,255,.10);
+      --accent:#e11d48; /* VIPER red */
+      --accent2:#22c55e; /* green hint */
+      --shadow:0 18px 50px rgba(0,0,0,.45);
+      --radius:18px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family:Arial,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,sans-serif;
-      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(1200px 600px at 70% -20%,#ffeaea 0%,transparent 50%),
-        var(--bg);
+        radial-gradient(1200px 700px at 70% -10%, rgba(225,29,72,.25) 0%, transparent 55%),
+        radial-gradient(900px 600px at -10% 0%, rgba(34,197,94,.12) 0%, transparent 55%),
+        linear-gradient(180deg, #050711 0%, var(--bg) 45%, #050711 100%);
+      color:var(--text);
     }
-    .wrap{max-width:980px;margin:0 auto;padding:32px 20px 60px}
-    .card{
-      background:var(--card);
-      border:1px solid var(--ring);
-      border-radius:20px;
-      box-shadow:0 10px 30px rgba(0,0,0,.06);
-      overflow:hidden
+    a{color:inherit}
+    .wrap{max-width:1120px;margin:0 auto;padding:28px 18px 84px}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding:12px 14px;border:1px solid var(--line);border-radius:999px;
+      background:rgba(15,21,38,.55);backdrop-filter: blur(10px);
     }
-    header{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      padding:22px 22px 12px;
-      border-bottom:1px solid var(--ring);
-      background:linear-gradient(180deg,#fff 0%,#fff 60%,#fafafa 100%)
+    .brand{display:flex;align-items:center;gap:12px;min-width:220px}
+    .brand img{width:40px;height:40px;border-radius:12px;display:block}
+    .brand b{letter-spacing:.4px}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:12px;color:var(--muted);
+      border:1px solid var(--line);border-radius:999px;
+      padding:8px 10px;background:rgba(7,10,18,.35);
+      white-space:nowrap;
     }
-    header img{
-      width:56px;height:56px;border-radius:12px;display:block
-    }
-    header h1{margin:0;font-size:26px;letter-spacing:.2px}
-    header .sub{margin:2px 0 0;font-size:14px;color:var(--muted)}
-    .lang{display:flex;gap:6px;align-items:center;margin-left:auto}
-    .lang button{
-      border:1px solid var(--ring);
-      background:#fff;
-      padding:6px 10px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:700
-    }
-    .lang button.active{background:#111;color:#fff;border-color:#111}
-    .content{padding:26px 22px 30px}
-    .badge{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      font-size:12px;
-      color:#fff;
-      background:var(--accent);
-      padding:6px 12px;
-      border-radius:999px;
-      font-weight:bold;
-      letter-spacing:.3px
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:22px;
-      margin-top:18px
-    }
-    @media (max-width:820px){
-      .grid{grid-template-columns:1fr}
-      header{padding:18px}
-    }
-    h2{margin:16px 0 8px;font-size:22px}
-    p{margin:8px 0;color:var(--ink)}
-    .muted{color:var(--muted)}
-    .panel{
-      padding:16px;
-      border:1px solid var(--ring);
-      border-radius:14px;
-      background:#fff
-    }
-    .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
     .btn{
-      appearance:none;border:none;cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:12px 16px;
-      border-radius:12px;
-      font-weight:700;
-      letter-spacing:.2px
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      text-decoration:none;border:1px solid var(--line);border-radius:12px;
+      padding:10px 12px;font-weight:700;letter-spacing:.2px;
+      background:rgba(15,21,38,.55);
+      transition:transform .08s ease, box-shadow .2s ease, border-color .2s ease;
     }
-    .btn-primary{
-      background:var(--accent);
-      color:#fff;
-      box-shadow:0 6px 18px rgba(193,18,31,.25)
+    .btn:hover{border-color:rgba(255,255,255,.22);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{background:linear-gradient(180deg, rgba(225,29,72,1) 0%, rgba(190,18,60,1) 100%);border-color:transparent}
+    .btn.ghost{background:transparent}
+    .hero{display:grid;grid-template-columns: 1.15fr .85fr;gap:18px;margin-top:18px}
+    @media (max-width:920px){.hero{grid-template-columns:1fr}}
+    .panel{
+      border:1px solid var(--line);border-radius:var(--radius);
+      background:rgba(11,15,25,.62);backdrop-filter: blur(10px);
+      box-shadow:var(--shadow);
     }
-    .btn-ghost{
-      background:#fff;
-      color:var(--ink);
-      border:1px solid var(--ring)
+    .hero-left{padding:26px 22px 22px}
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;
+      font-size:12px;font-weight:800;letter-spacing:.35px;
+      color:rgba(255,255,255,.88);
+      background:rgba(225,29,72,.12);
+      border:1px solid rgba(225,29,72,.25);
+      padding:8px 12px;border-radius:999px;
     }
-    .list{margin:8px 0 0;padding:0;list-style:none;color:var(--muted);font-size:14px}
-    .list li{padding:6px 0}
-    footer{
-      max-width:980px;
-      margin:16px auto 40px;
-      padding:0 20px;
-      color:var(--muted);
+    h1{margin:14px 0 10px;font-size:44px;line-height:1.06;letter-spacing:-.6px}
+    @media (max-width:520px){h1{font-size:36px}}
+    .sub{margin:0 0 18px;color:var(--muted);font-size:16px;line-height:1.55}
+    .highlights{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
+    .tag{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 12px;border:1px solid var(--line);border-radius:999px;
+      color:rgba(255,255,255,.92);background:rgba(7,10,18,.35);
       font-size:13px;
-      text-align:center
     }
-    .hide{display:none}
+    .tag b{color:#fff}
+    .hero-right{padding:18px}
+    .card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:linear-gradient(180deg, rgba(15,21,38,.9) 0%, rgba(15,21,38,.55) 100%);
+      padding:16px;
+    }
+    .card h3{margin:0 0 8px;font-size:16px}
+    .card p{margin:0;color:var(--muted);line-height:1.55;font-size:14px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    @media (max-width:920px){.grid3{grid-template-columns:1fr}}
+    .section{margin-top:26px}
+    .section h2{margin:0 0 10px;font-size:26px;letter-spacing:-.2px}
+    .section .lead{margin:0 0 14px;color:var(--muted);line-height:1.55}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media (max-width:920px){.cards{grid-template-columns:1fr}}
+    .feature{padding:16px;border-radius:16px;border:1px solid var(--line);background:rgba(15,21,38,.55)}
+    .feature b{display:block;margin-bottom:6px}
+    .feature p{margin:0;color:var(--muted);line-height:1.55;font-size:14px}
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:920px){.compare{grid-template-columns:1fr}}
+    .table{
+      border:1px solid var(--line);border-radius:16px;overflow:hidden;background:rgba(15,21,38,.45)
+    }
+    .row{display:flex;gap:10px;justify-content:space-between;padding:12px 14px;border-top:1px solid var(--line)}
+    .row:first-child{border-top:none}
+    .row .l{color:rgba(255,255,255,.92);font-weight:700}
+    .row .r{color:var(--muted)}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;
+      background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25)
+    }
+    .models{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:920px){.models{grid-template-columns:1fr}}
+    .model{
+      border:1px solid var(--line);border-radius:16px;background:rgba(15,21,38,.55);
+      padding:16px;
+    }
+    .model h3{margin:0 0 4px;font-size:18px}
+    .model .kw{color:rgba(255,255,255,.92);font-weight:800}
+    ul{margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.6}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media (max-width:920px){.steps{grid-template-columns:1fr}}
+    .step{border:1px solid var(--line);border-radius:16px;background:rgba(15,21,38,.55);padding:16px}
+    .step b{display:block;margin-bottom:6px}
+    .cta{
+      display:grid;grid-template-columns:1.1fr .9fr;gap:12px;align-items:stretch;
+      margin-top:16px;
+    }
+    @media (max-width:920px){.cta{grid-template-columns:1fr}}
+    .form{
+      border:1px solid var(--line);border-radius:16px;background:rgba(15,21,38,.55);
+      padding:16px;
+    }
+    label{display:block;font-size:12px;color:var(--muted);margin:12px 0 6px}
+    input,textarea{
+      width:100%;padding:12px 12px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(7,10,18,.55);
+      color:var(--text);outline:none;
+    }
+    input:focus,textarea:focus{border-color:rgba(225,29,72,.45)}
+    textarea{min-height:92px;resize:vertical}
+    .note{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.5}
+    .footer{
+      margin-top:26px;padding-top:18px;border-top:1px solid var(--line);
+      display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;color:var(--muted);font-size:13px
+    }
+    .mini{font-size:12px;color:var(--muted)}
+    .anchor{scroll-margin-top:90px}
+    .ok{display:none;margin-top:10px;padding:10px 12px;border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.08);border-radius:12px;color:rgba(255,255,255,.95)}
+    .err{display:none;margin-top:10px;padding:10px 12px;border:1px solid rgba(225,29,72,.35);background:rgba(225,29,72,.10);border-radius:12px;color:rgba(255,255,255,.95)}
   </style>
 </head>
 
 <body>
-<div class="wrap">
-  <div class="card">
-    <header>
-      <!-- logo.png in repo root -->
-      <img src="viper_logo.png" alt="VIPER logo" width="56" height="56" onerror="this.style.display='none'">
-      <div>
-        <h1><span style="color:var(--accent)">VIPER</span></h1>
-        <div class="sub">Palniki pelletowe · Polska</div>
+  <div class="wrap">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="brand">
+        <img src="viper_logo.png" alt="VIPER logo" onerror="this.style.display='none'">
+        <div>
+          <b>VIPER</b>
+          <div class="mini">Opatentowana technologia spalania pelletu</div>
+        </div>
       </div>
-      <div class="lang" id="lang">
-        <span class="muted" style="font-size:12px">Language</span>
-        <button data-lang="pl" class="active">PL</button>
-        <button data-lang="en">EN</button>
+
+      <div class="pill">🚐 Działamy w całej Polsce</div>
+
+      <div class="actions">
+        <a class="btn ghost" href="tel:+48514168747">📞 +48 514 168 747</a>
+        <a class="btn primary" href="#kontakt">Zapytaj o modernizację</a>
       </div>
-    </header>
+    </div>
 
-    <div class="content">
-      <span class="badge">STRONA W PRZYGOTOWANIU</span>
+    <!-- Hero -->
+    <div class="hero">
+      <div class="panel hero-left">
+        <div class="kicker">🔥 Modernizacja kotłowni • pellet zamiast węgla</div>
+        <h1>Palnik pelletowy do modernizacji istniejącego kotła.</h1>
+        <p class="sub">
+          VIPER to rozwiązanie dla domów i kotłowni: dojeżdżamy, doradzamy i modernizujemy instalacje w całej Polsce.
+          <br><br>
+          <b>Praca już od 10% mocy</b> – stabilna praca przy małym zapotrzebowaniu i realne oszczędności pelletu.
+        </p>
 
-      <div class="grid">
-        <!-- PL -->
-        <div id="pl">
-          <h2>Przygotowujemy nową stronę</h2>
-          <p class="muted">
-            VIPER to nowoczesne palniki pelletowe oparte na
-            <strong>opatentowanej technologii spalania pelletu</strong>.
+        <div class="actions" style="margin-top:14px">
+          <a class="btn primary" href="#kontakt">Zapytaj o ofertę</a>
+          <a class="btn" href="#modele">Zobacz modele 15/25 kW</a>
+        </div>
+
+        <div class="highlights">
+          <div class="tag">⚙️ <b>10% modulacji</b> mocy</div>
+          <div class="tag">🤖 Nowoczesna automatyka</div>
+          <div class="tag">🛠️ Minimalne wymagania serwisowe</div>
+          <div class="tag">🔒 Solidna i niezawodna konstrukcja</div>
+        </div>
+      </div>
+
+      <div class="panel hero-right">
+        <div class="card">
+          <h3>Dlaczego klienci wybierają modernizację?</h3>
+          <p>
+            Bez kosztownej wymiany całej kotłowni. Mniej brudu, wygodniejsza obsługa i automatyczna praca na pellet.
           </p>
+        </div>
 
-          <div class="panel">
-            <strong>Kontakt</strong>
-            <ul class="list">
-              <li>✉️ <a href="mailto:admin@viperpalnik.pl">admin@viperpalnik.pl</a></li>
-              <li>📞 <a href="tel:+48574889505">+48 574 889 505</a></li>
-              <li>📍 ul. Świerkowa 5, 87-300 Brodnica</li>
-            </ul>
-            <div class="btns">
-              <a class="btn btn-primary" href="https://abcpelletu.pl/">Przejdź na stronę</a>
-              <a class="btn btn-ghost" href="tel:+48574889505">Zadzwoń</a>
-            </div>
+        <div class="grid3">
+          <div class="feature">
+            <b>🔁 Modernizacja</b>
+            <p>Modernizujemy istniejące kotły – bez „rewolucji” w instalacji.</p>
+          </div>
+          <div class="feature">
+            <b>🚐 Dojazd</b>
+            <p>Działamy w całej Polsce. Dobór i konsultacja z zespołem.</p>
+          </div>
+          <div class="feature">
+            <b>🤖 Automatyka</b>
+            <p>Zaawansowana, ale prosta w obsłudze elektronika sterująca.</p>
           </div>
         </div>
 
-        <!-- EN -->
-        <div id="en" class="hide">
-          <h2>Website under construction</h2>
-          <p class="muted">
-            VIPER pellet burners are based on a
-            <strong>patented pellet combustion technology</strong>.
-          </p>
-
-          <div class="panel">
-            <strong>Contact</strong>
-            <ul class="list">
-              <li>✉️ <a href="mailto:admin@viperpalnik.pl">admin@viperpalnik.pl</a></li>
-              <li>📞 <a href="tel:+48574889505">+48 574 889 505</a></li>
-              <li>📍 Brodnica, Poland</li>
-            </ul>
-            <div class="btns">
-              <a class="btn btn-primary" href="https://abcpelletu.pl/">Go to website</a>
-              <a class="btn btn-ghost" href="tel:+48574889505">Call us</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <strong>VIPER</strong>
-          <p class="muted">
-            Opatentowana technologia spalania pelletu.
-            Precyzja, kontrola i efektywność w nowoczesnych systemach grzewczych.
+        <div class="card" style="margin-top:12px">
+          <div class="badge">⚙️ Wyróżnik VIPER</div>
+          <p style="margin-top:8px">
+            Wyjątkowo szeroki zakres pracy: <b>od 10% mocy</b>.
+            W standardowych palnikach często spotyka się poziom od ok. <b>30%</b>.
           </p>
         </div>
       </div>
     </div>
+
+    <!-- Why -->
+    <div class="section anchor" id="dlaczego">
+      <h2>Dlaczego VIPER</h2>
+      <p class="lead">
+        VIPER to połączenie opatentowanej technologii spalania, stabilnej pracy oraz nowoczesnej automatyki —
+        w rozwiązaniu, które sprawdza się w modernizacji domów i kotłowni.
+      </p>
+
+      <div class="cards">
+        <div class="feature">
+          <b>🔥 Opatentowana technologia spalania</b>
+          <p>Stabilne i czyste spalanie pelletu w szerokim zakresie pracy.</p>
+        </div>
+        <div class="feature">
+          <b>⚙️ Modulacja już od 10% mocy</b>
+          <p>Stabilna praca przy niskim zapotrzebowaniu na ciepło, mniej „taktowania” i realne oszczędności pelletu.</p>
+        </div>
+        <div class="feature">
+          <b>🤖 Nowoczesna automatyka</b>
+          <p>Zaawansowany sterownik i intuicyjna obsługa — technologia, która nie komplikuje życia użytkownikowi.</p>
+        </div>
+      </div>
+
+      <div class="compare" style="margin-top:12px">
+        <div class="table">
+          <div class="row"><div class="l">Cecha</div><div class="r">VIPER</div></div>
+          <div class="row"><div class="l">Zakres pracy</div><div class="r">od <b>10%</b> mocy</div></div>
+          <div class="row"><div class="l">Praca przy małym zapotrzebowaniu</div><div class="r">stabilna, płynna</div></div>
+          <div class="row"><div class="l">Zużycie pelletu</div><div class="r">niższe przy realnych warunkach</div></div>
+        </div>
+
+        <div class="table">
+          <div class="row"><div class="l">Standardowe palniki</div><div class="r">Najczęściej</div></div>
+          <div class="row"><div class="l">Zakres pracy</div><div class="r">często od ok. <b>30%</b></div></div>
+          <div class="row"><div class="l">Praca przy małym zapotrzebowaniu</div><div class="r">częstsze włącz/wyłącz</div></div>
+          <div class="row"><div class="l">Zużycie pelletu</div><div class="r">wyższe przez „taktowanie”</div></div>
+        </div>
+      </div>
+      <p class="mini" style="margin-top:8px;color:var(--muted)">
+        *Wartości porównawcze mają charakter informacyjny – zakres modulacji zależy od konstrukcji i konfiguracji urządzeń.
+      </p>
+    </div>
+
+    <!-- Before / After -->
+    <div class="section anchor" id="przedpo">
+      <h2>Modernizacja kotłowni: przed i po</h2>
+      <p class="lead">
+        Najprostszy sposób, by zrozumieć efekt. Dodajemy tu zdjęcia „przed modernizacją” i „po modernizacji”.
+      </p>
+
+      <div class="cards">
+        <div class="feature">
+          <b>📸 Przed modernizacją</b>
+          <p>Stary kocioł na węgiel, brud, ręczna obsługa i uciążliwa eksploatacja.</p>
+          <p class="mini">Miejsce na zdjęcie: <b>before.jpg</b></p>
+        </div>
+        <div class="feature">
+          <b>✅ Po modernizacji z VIPER</b>
+          <p>Czysta kotłownia, pellet zamiast węgla, automatyczna i stabilna praca.</p>
+          <p class="mini">Miejsce na zdjęcie: <b>after.jpg</b></p>
+        </div>
+        <div class="feature">
+          <b>🤖 Automatyka</b>
+          <p>Nowoczesne sterowanie: funkcjonalne, ale proste w obsłudze dla użytkownika.</p>
+          <p class="mini">Miejsce na zdjęcie: <b>controller.jpg</b></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Models -->
+    <div class="section anchor" id="modele">
+      <h2>Modele VIPER</h2>
+      <p class="lead">Zaczynamy od dwóch modeli – 15 kW i 25 kW. W przyszłości linia VIPER będzie rozszerzana.</p>
+
+      <div class="models">
+        <div class="model">
+          <h3>VIPER <span class="kw">15 kW</span></h3>
+          <div class="mini">Dla domów jednorodzinnych i mniejszych kotłowni</div>
+          <ul>
+            <li>Idealny do modernizacji instalacji o niskim i średnim zapotrzebowaniu na ciepło</li>
+            <li>Stabilna praca przy małych obciążeniach (korzyść z modulacji)</li>
+            <li>Niskie zużycie pelletu w codziennym ogrzewaniu</li>
+          </ul>
+        </div>
+
+        <div class="model">
+          <h3>VIPER <span class="kw">25 kW</span></h3>
+          <div class="mini">Dla większych domów oraz kotłowni</div>
+          <ul>
+            <li>Większa moc i elastyczność pracy, zapas przy wyższym obciążeniu</li>
+            <li>Stabilna praca w systemach o większym zapotrzebowaniu</li>
+            <li>Dobry wybór dla kotłowni i większych instalacji grzewczych</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Process -->
+    <div class="section anchor" id="jak">
+      <h2>Jak wygląda współpraca</h2>
+      <p class="lead">Prosto: zbieramy podstawowe informacje, dobieramy model i umawiamy modernizację.</p>
+
+      <div class="steps">
+        <div class="step">
+          <b>1) Zapytanie</b>
+          <div class="mini">Zostaw telefon – oddzwonimy i dopytamy o kotłownię.</div>
+        </div>
+        <div class="step">
+          <b>2) Dobór modelu</b>
+          <div class="mini">15 kW lub 25 kW – dobór do realnego zapotrzebowania.</div>
+        </div>
+        <div class="step">
+          <b>3) Modernizacja</b>
+          <div class="mini">Działamy w całej Polsce – dojazd, modernizacja i uruchomienie.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="section anchor" id="kontakt">
+      <h2>Zapytaj o modernizację kotłowni</h2>
+      <p class="lead">Zostaw kontakt – skontaktujemy się i doradzimy najlepsze rozwiązanie.</p>
+
+      <div class="cta">
+        <div class="form">
+          <form id="leadForm">
+            <label for="name">Imię</label>
+            <input id="name" name="name" type="text" placeholder="Np. Jan" required />
+
+            <label for="phone">Telefon</label>
+            <input id="phone" name="phone" type="tel" placeholder="Np. +48 5xx xxx xxx" required />
+
+            <label for="msg">Wiadomość (opcjonalnie)</label>
+            <textarea id="msg" name="msg" placeholder="Np. kocioł na węgiel, dom 180 m², województwo..."></textarea>
+
+            <button class="btn primary" type="submit" style="width:100%;margin-top:12px">Wyślij zapytanie</button>
+
+            <div class="ok" id="okMsg">Dziękujemy! Otrzymaliśmy zgłoszenie. Skontaktujemy się wkrótce.</div>
+            <div class="err" id="errMsg">Nie udało się wysłać formularza. Prosimy zadzwonić: +48 514 168 747</div>
+
+            <div class="note">
+              Wysyłając formularz, wyrażasz zgodę na kontakt w sprawie doboru urządzenia i modernizacji kotłowni.
+            </div>
+          </form>
+
+          <div class="mini" style="margin-top:10px">
+            Preferujesz telefon? Zadzwoń: <a href="tel:+48514168747"><b>+48 514 168 747</b></a>
+          </div>
+        </div>
+
+        <div class="form">
+          <b>Kontakt</b>
+          <div class="mini" style="margin-top:8px;line-height:1.7">
+            <div><b>HEATING Sp. z o.o.</b></div>
+            <div>ul. Świerkowa 5, 87-300 Brodnica</div>
+            <div>NIP: 8741778429</div>
+            <div style="margin-top:10px">📞 <a href="tel:+48514168747">+48 514 168 747</a></div>
+            <div>✉️ <a href="mailto:kontakt@viperpalnik.pl">kontakt@viperpalnik.pl</a></div>
+            <div style="margin-top:10px">🌐 <a href="https://viperpalnik.pl">www.viperpalnik.pl</a></div>
+            <div>🌐 <a href="https://abcpelletu.pl">www.abcpelletu.pl</a></div>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h3>Uwaga</h3>
+            <p>
+              Formularz na tej stronie jest przygotowany pod integrację (CRM / e-mail / Telegram).
+              Teraz zapisuje zgłoszenie lokalnie i pokazuje potwierdzenie.
+              Następny krok: podłączymy wysyłkę leadów.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>© <span id="y"></span> VIPER – Palniki pelletowe</div>
+      <div>Opatentowana technologia spalania pelletu · Działamy w całej Polsce</div>
+    </div>
   </div>
 
-  <footer>
-    © <script>document.write(new Date().getFullYear())</script>
-    HEATING Sp. z o.o. · NIP 8741778429
-  </footer>
-</div>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-<script>
-  // language toggle
-  const lang = document.getElementById('lang');
-  const pl = document.getElementById('pl');
-  const en = document.getElementById('en');
+    // Пока без сервера: показываем подтверждение и не теряем лид (копируется в буфер)
+    const form = document.getElementById('leadForm');
+    const ok = document.getElementById('okMsg');
+    const err = document.getElementById('errMsg');
 
-  lang.addEventListener('click', e => {
-    const btn = e.target.closest('button');
-    if (!btn) return;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      ok.style.display = 'none';
+      err.style.display = 'none';
 
-    lang.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+      const data = {
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        message: form.msg.value.trim(),
+        page: location.href,
+        ts: new Date().toISOString()
+      };
 
-    if (btn.dataset.lang === 'en') {
-      pl.classList.add('hide');
-      en.classList.remove('hide');
-      document.documentElement.lang = 'en';
-    } else {
-      en.classList.add('hide');
-      pl.classList.remove('hide');
-      document.documentElement.lang = 'pl';
-    }
-  });
-</script>
+      // Временное решение: копируем данные в буфер, чтобы менеджер мог сразу вставить в CRM/чат
+      const text = `VIPER lead\nImię: ${data.name}\nTelefon: ${data.phone}\nWiadomość: ${data.message || '-'}\nStrona: ${data.page}\nCzas: ${data.ts}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        ok.style.display = 'block';
+        form.reset();
+      } catch {
+        // Если буфер не доступен — просто показываем success
+        ok.style.display = 'block';
+        form.reset();
+      }
+    });
+  </script>
 </body>
 </html>
+
