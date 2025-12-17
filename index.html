@@ -600,53 +600,38 @@
     </p>
   </header>
 
-  <form id="leadForm" action="#" method="post">
-    <!-- tracking -->
-    <input type="hidden" name="source" value="google_ads" />
-    <input type="hidden" name="gclid" id="gclid" value="" />
-    <input type="hidden" name="page_url" id="page_url" value="" />
-    <input type="hidden" name="referrer" id="referrer" value="" />
-    <input type="hidden" name="ua" id="ua" value="" />
+ <form id="leadForm" action="#" method="post">
+  <input type="hidden" name="source" value="google_ads" />
+  <input type="hidden" name="gclid" id="gclid" value="" />
+  <input type="hidden" name="page_url" id="page_url" value="" />
+  <input type="hidden" name="referrer" id="referrer" value="" />
+  <input type="hidden" name="ua" id="ua" value="" />
 
-    <div class="fields">
-      <div class="field">
-        <label for="contact_name">Imię</label>
-        <input
-          type="text"
-          name="name"
-          id="contact_name"
-          placeholder="Twoje imię"
-          autocomplete="given-name"
-        />
-      </div>
-
-      <div class="field">
-        <label for="contact_phone">Telefon</label>
-        <input
-          type="tel"
-          name="phone"
-          id="contact_phone"
-          placeholder="+48 ___ ___ ___"
-          required
-          autocomplete="tel"
-          inputmode="tel"
-        />
-      </div>
-
-      <div class="field">
-        <label style="text-transform:none; letter-spacing:0; font-weight:500;">
-          <input type="checkbox" name="consent" required />
-          Wyrażam zgodę na kontakt telefoniczny w sprawie konsultacji.
-        </label>
-      </div>
+  <div class="fields">
+    <div class="field">
+      <label for="contact_name">Imię</label>
+      <input type="text" name="name" id="contact_name" placeholder="Twoje imię" autocomplete="given-name" />
     </div>
 
-    <ul class="actions special">
-      <li><input type="submit" value="Oddzwońcie do mnie" class="primary" /></li>
-    </ul>
+    <div class="field">
+      <label for="contact_phone">Telefon</label>
+      <input type="tel" name="phone" id="contact_phone" placeholder="+48 ___ ___ ___" required autocomplete="tel" inputmode="tel" />
+    </div>
 
-    <p id="formMsg" style="text-align:center; font-size:0.85em; opacity:0.75; margin-top:0.6em; display:none;"></p>
-  </form>
+    <div class="field">
+      <label style="text-transform:none; letter-spacing:0; font-weight:500;">
+        <input type="checkbox" name="consent" value="yes" required />
+        Wyrażam zgodę na kontakt telefoniczny w sprawie konsultacji.
+      </label>
+    </div>
+  </div>
+
+  <ul class="actions special">
+    <li><input type="submit" value="Oddzwońcie do mnie" class="primary" /></li>
+  </ul>
+
+  <p id="formMsg" style="text-align:center; font-size:0.85em; opacity:0.75; margin-top:0.6em; display:none;"></p>
+</form>
 </section>
 
 
@@ -715,34 +700,21 @@
 	<script src="assets/js/main.js"></script>
 
 <script>
-  console.log("VIPER form script loaded");
+  window.addEventListener("DOMContentLoaded", () => {
+    const ENDPOINT = "https://script.google.com/macros/s/AKfycby7jPuGMnNMIYhFqUNsvu_Mzc5qy1aon0wnE15kcvUEQbHYStpkgCqz7_mEiDaev50BGA/exec";
 
-  const ENDPOINT = "https://script.google.com/macros/s/AKfycbxOugk4BPu7URI-GF6WPyNnEeBL_bfvsLbHSEpg_CPM2SX7VCDXRCjtTzetP4LkBYNTKQ/exec";
-
-  function getParam(name) {
-    const url = new URL(window.location.href);
-    return url.searchParams.get(name) || "";
-  }
-
-  function initViperForm() {
-    const form = document.getElementById("leadForm");
-    const msg = document.getElementById("formMsg");
-
-    if (!form) {
-      console.error("leadForm not found");
-      return;
+    function getParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name) || "";
     }
 
-    // tracking values
-    const gclidEl = document.getElementById("gclid");
-    const pageUrlEl = document.getElementById("page_url");
-    const refEl = document.getElementById("referrer");
-    const uaEl = document.getElementById("ua");
+    const form = document.getElementById("leadForm");
+    const msg  = document.getElementById("formMsg");
 
-    if (gclidEl) gclidEl.value = getParam("gclid");
-    if (pageUrlEl) pageUrlEl.value = window.location.href;
-    if (refEl) refEl.value = document.referrer || "";
-    if (uaEl) uaEl.value = navigator.userAgent;
+    document.getElementById("gclid").value    = getParam("gclid");
+    document.getElementById("page_url").value = window.location.href;
+    document.getElementById("referrer").value = document.referrer || "";
+    document.getElementById("ua").value       = navigator.userAgent || "";
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -757,21 +729,22 @@
 
       const fd = new FormData(form);
 
-      fetch(ENDPOINT, { method: "POST", body: fd, mode: "no-cors" })
-        .catch(() => {})
-        .finally(() => {
-          // редирект на страницу спасибо (она у тебя в корне репо)
-          window.location.href = "thank-you.html";
-        });
-    });
-  }
+      // страховка редиректа
+      const goThankYou = () => (window.location.href = "thank-you.html");
+      const t = setTimeout(goThankYou, 1200);
 
-  // гарантируем запуск даже если DOMContentLoaded уже прошёл
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initViperForm);
-  } else {
-    initViperForm();
-  }
+      fetch(ENDPOINT, {
+        method: "POST",
+        body: fd,
+        mode: "no-cors",
+      })
+      .catch(() => {})
+      .finally(() => {
+        clearTimeout(t);
+        goThankYou();
+      });
+    });
+  });
 </script>
 
 
