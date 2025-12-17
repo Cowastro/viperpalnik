@@ -600,7 +600,7 @@
     </p>
   </header>
 
- <form id="leadForm" action="#" method="post" onsubmit="return viperSubmit(event)">
+<form id="leadForm" action="#" method="post" novalidate onsubmit="return viperSubmit(event)">
   <input type="hidden" name="source" value="google_ads" />
   <input type="hidden" name="gclid" id="gclid" value="" />
   <input type="hidden" name="page_url" id="page_url" value="" />
@@ -615,24 +615,24 @@
 
     <div class="field">
       <label for="contact_phone">Telefon</label>
-      <input type="tel" name="phone" id="contact_phone" placeholder="+48 ___ ___ ___" required autocomplete="tel" inputmode="tel" />
+      <input type="tel" name="phone" id="contact_phone" placeholder="+48 ___ ___ ___" autocomplete="tel" inputmode="tel" />
     </div>
 
     <div class="field">
       <label style="text-transform:none; letter-spacing:0; font-weight:500;">
-        <input type="checkbox" name="consent" value="yes" required />
+        <input type="checkbox" name="consent" value="yes" />
         Wyrażam zgodę na kontakt telefoniczny w sprawie konsultacji.
       </label>
     </div>
   </div>
 
   <ul class="actions special">
-   <li><input id="leadSubmit" type="submit" value="Oddzwońcie do mnie" class="primary" /></li>
-
+    <li><input id="leadSubmit" type="submit" value="Oddzwońcie do mnie" class="primary" /></li>
   </ul>
 
   <p id="formMsg" style="text-align:center; font-size:0.85em; opacity:0.75; margin-top:0.6em; display:none;"></p>
 </form>
+
 </section>
 
 
@@ -753,3 +753,4 @@
 </body>
 
 </html>
+
