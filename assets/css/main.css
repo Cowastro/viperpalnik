@@ -4908,3 +4908,8 @@ html, body { overflow-x: hidden; }
   100% { transform: translateY(0); }
 }
 
+#kontakt { position: relative; z-index: 9999; }
+#leadSubmit { position: relative; z-index: 10000; }
+#footer:before, #footer:after,
+#kontakt:before, #kontakt:after { pointer-events: none; }
+
