@@ -4854,46 +4854,55 @@ html, body { overflow-x: hidden; }
   opacity: 1;
 }
 
-/* ===== VIPER – footer mobile spacing ===== */
+/* ===== VIPER – footer mobile FIX (no horizontal scroll) ===== */
 @media screen and (max-width: 736px) {
 
-  #footer #kontakt header.major h2 {
-    line-height: 1.2;
-    margin-bottom: 1rem;
-  }
-
-  #footer #kontakt header.major p {
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-  }
-
-  #footer #kontakt .fields {
-    margin-bottom: 1.25rem;
-  }
-
-  #footer #kontakt .field label {
-    margin-bottom: 0.5rem;
-  }
-
-  #footer #kontakt input[type="text"],
-  #footer #kontakt input[type="tel"] {
-    height: 3.25rem;
-  }
-
-  /* кнопка на мобиле */
-  #footer .actions.special {
-    margin-top: 0.25rem;
-  }
-
-  #footer .actions.special .primary {
+  html, body {
     width: 100%;
-    max-width: 22rem;
+    overflow-x: hidden !important;
   }
 
-  .contact-simple a[href^="tel"] {
-    font-size: 1.2em;
+  #footer {
+    width: 100%;
+    overflow-x: hidden !important;
   }
+
+  #footer * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* если шаблон рисует split/табличную сетку — ломаем её в колонку */
+  #footer .split,
+  #footer .split.contact,
+  #footer .split > section,
+  #footer .split.contact > section {
+    display: block !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    border-left: 0 !important;
+  }
+
+  /* длинные строки (email/телефон) не должны расширять экран */
+  #footer a,
+  #footer p,
+  #footer li {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* форма */
+  #kontakt form { width: 100%; max-width: 420px; margin: 0 auto; }
+  #kontakt input[type="text"],
+  #kontakt input[type="tel"] { width: 100%; }
+
+  /* кнопка */
+  #kontakt .actions { display: flex; justify-content: center; }
+  #kontakt .actions li { width: 100%; display: flex; justify-content: center; }
+  #kontakt .actions input.primary { width: 100%; max-width: 22rem; }
 }
+
 
 
 
