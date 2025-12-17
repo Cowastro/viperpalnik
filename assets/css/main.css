@@ -4727,7 +4727,6 @@ input, select, textarea {
   margin: 1rem 0 0 0;
   text-align: left;
 }
-
 /* ===== VIPER – Kontakt form alignment ===== */
 
 #kontakt form {
@@ -4753,7 +4752,7 @@ input, select, textarea {
   text-align: left;
 }
 
-/* Кнопка: железно по центру */
+/* Кнопка: по центру (без растягивания li на 100%) */
 #kontakt .actions {
   margin-top: 2em;
   display: flex;
@@ -4761,9 +4760,7 @@ input, select, textarea {
 }
 
 #kontakt .actions li {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  width: auto;
 }
 
 #kontakt .actions input {
@@ -4774,8 +4771,15 @@ input, select, textarea {
 }
 
 /* ===== Simple footer contact (mobile safe) ===== */
+
+/* убираем горизонтальный скролл (часто из-за длинных строк/иконок) */
+html, body { overflow-x: hidden; }
+#footer { overflow-x: hidden; }
+
 .contact-simple {
   text-align: center;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .contact-simple h3 {
@@ -4793,8 +4797,10 @@ input, select, textarea {
 
 .contact-simple .contact-list li {
   margin-bottom: 2rem;
+  max-width: 100%;
 }
 
+/* заголовки полей */
 .contact-simple strong {
   display: block;
   letter-spacing: 0.18em;
@@ -4805,12 +4811,14 @@ input, select, textarea {
   color: #666;
 }
 
-/* значения контактов */
+/* значения контактов + перенос длинных строк */
 .contact-simple a,
 .contact-simple .contact-list li {
   font-size: 1.15em;
   font-weight: 500;
   line-height: 1.6;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .contact-simple a {
@@ -4824,21 +4832,25 @@ input, select, textarea {
   letter-spacing: 0.06em;
 }
 
-/* email — чтобы не рвало на мобиле */
-.contact-simple a[href^="mailto"] {
-  word-break: break-word;
+/* соцсети — flex, чтобы не вылезали за экран */
+.contact-simple .icons.alt {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-left: 0;
+  margin: 1.5rem 0 0 0;
 }
 
-/* иконки соцсетей */
-.contact-simple .icons {
-  margin-top: 1.5rem;
+.contact-simple .icons.alt li {
+  padding: 0;
 }
 
-.contact-simple .icons li a {
+.contact-simple .icons.alt li a {
   opacity: 0.85;
 }
 
-.contact-simple .icons li a:hover {
+.contact-simple .icons.alt li a:hover {
   opacity: 1;
 }
 
@@ -4868,7 +4880,7 @@ input, select, textarea {
     height: 3.25rem;
   }
 
-  /* кнопка на мобиле — красиво и не “кирпич” */
+  /* кнопка на мобиле */
   #footer .actions.special {
     margin-top: 0.25rem;
   }
@@ -4882,5 +4894,6 @@ input, select, textarea {
     font-size: 1.2em;
   }
 }
+
 
 
