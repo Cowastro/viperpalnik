@@ -4941,4 +4941,43 @@ html, body { overflow-x: hidden; }
   text-decoration: underline;
 }
 
+/* ===== Privacy page fixes ===== */
+body .post.featured {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+body .post.featured h2,
+body .post.featured h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.08em; /* было слишком широко */
+}
+
+body .post.featured p {
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+}
+
+body .post.featured ul {
+  margin: 0.5rem 0 1.5rem 1.2rem;
+}
+
+body .post.featured ul li {
+  margin-bottom: 0.4rem;
+  list-style: disc;
+}
+
+/* ===== FIX: listy na stronie polityki prywatności ===== */
+body .post.featured ul {
+  display: block !important;
+  list-style: disc;
+  margin-left: 1.2rem;
+}
+
+body .post.featured ul li {
+  display: list-item !important;
+  text-align: left !important;
+  margin-bottom: 0.5rem;
+}
 
