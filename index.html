@@ -600,7 +600,7 @@
     </p>
   </header>
 
- <form id="leadForm" action="#" method="post">
+ <form id="leadForm" action="#" method="post" onsubmit="return viperSubmit(event)">
   <input type="hidden" name="source" value="google_ads" />
   <input type="hidden" name="gclid" id="gclid" value="" />
   <input type="hidden" name="page_url" id="page_url" value="" />
@@ -627,7 +627,8 @@
   </div>
 
   <ul class="actions special">
-    <li><input type="submit" value="Oddzwońcie do mnie" class="primary" /></li>
+   <li><input id="leadSubmit" type="submit" value="Oddzwońcie do mnie" class="primary" /></li>
+
   </ul>
 
   <p id="formMsg" style="text-align:center; font-size:0.85em; opacity:0.75; margin-top:0.6em; display:none;"></p>
@@ -700,52 +701,51 @@
 	<script src="assets/js/main.js"></script>
 
 <script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const ENDPOINT = "https://script.google.com/macros/s/AKfycby7jPuGMnNMIYhFqUNsvu_Mzc5qy1aon0wnE15kcvUEQbHYStpkgCqz7_mEiDaev50BGA/exec";
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycby7jPuGMnNMIYhFqUNsvu_Mzc5qy1aon0wnE15kcvUEQbHYStpkgCqz7_mEiDaev50BGA/exec";
 
-    function getParam(name) {
-      const url = new URL(window.location.href);
-      return url.searchParams.get(name) || "";
-    }
+  function getParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name) || "";
+  }
+
+  // заполнить tracking сразу (не ждём DOMContentLoaded)
+  (function () {
+    const gclid = document.getElementById("gclid");
+    const page  = document.getElementById("page_url");
+    const ref   = document.getElementById("referrer");
+    const ua    = document.getElementById("ua");
+
+    if (gclid) gclid.value = getParam("gclid");
+    if (page)  page.value  = window.location.href;
+    if (ref)   ref.value   = document.referrer || "";
+    if (ua)    ua.value    = navigator.userAgent || "";
+  })();
+
+  function viperSubmit(e) {
+    e.preventDefault();
 
     const form = document.getElementById("leadForm");
     const msg  = document.getElementById("formMsg");
+    const btn  = document.getElementById("leadSubmit");
 
-    document.getElementById("gclid").value    = getParam("gclid");
-    document.getElementById("page_url").value = window.location.href;
-    document.getElementById("referrer").value = document.referrer || "";
-    document.getElementById("ua").value       = navigator.userAgent || "";
+    if (!form) return false;
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+    if (btn) btn.disabled = true;
+    if (msg) { msg.style.display = "block"; msg.textContent = "Wysyłanie…"; }
 
-      const submitBtn = form.querySelector('input[type="submit"]');
-      if (submitBtn) submitBtn.disabled = true;
+    const fd = new FormData(form);
 
-      if (msg) {
-        msg.style.display = "block";
-        msg.textContent = "Wysyłanie…";
-      }
+    const goThankYou = () => (window.location.href = "thank-you.html");
+    const t = setTimeout(goThankYou, 1200);
 
-      const fd = new FormData(form);
-
-      // страховка редиректа
-      const goThankYou = () => (window.location.href = "thank-you.html");
-      const t = setTimeout(goThankYou, 1200);
-
-      fetch(ENDPOINT, {
-        method: "POST",
-        body: fd,
-        mode: "no-cors",
-      })
+    fetch(ENDPOINT, { method: "POST", body: fd, mode: "no-cors" })
       .catch(() => {})
-      .finally(() => {
-        clearTimeout(t);
-        goThankYou();
-      });
-    });
-  });
+      .finally(() => { clearTimeout(t); goThankYou(); });
+
+    return false;
+  }
 </script>
+
 
 
 
