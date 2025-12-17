@@ -4910,3 +4910,17 @@ html, body { overflow-x: hidden; }
   50%  { transform: translateY(-4px); }
   100% { transform: translateY(0); }
 }
+
+@media (max-width: 736px) {
+  #call-icon {
+    background: rgba(0,0,0,0.55);
+    border-color: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  #call-icon:hover {
+    background: rgba(0,0,0,0.7);
+  }
+}
+
