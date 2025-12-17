@@ -4855,6 +4855,8 @@ html, body { overflow-x: hidden; }
   opacity: 1;
 }
 
+
+/* Floating call icon */
 #call-icon {
   position: fixed;
   right: 20px;
@@ -4862,65 +4864,44 @@ html, body { overflow-x: hidden; }
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.6);
-  background: transparent;
+  background: #2ecc71;
+  border: 2px solid #2ecc71;
   z-index: 10000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: call-float 4.5s ease-in-out infinite;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
-/* иконка телефона */
+/* Phone icon */
 #call-icon::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  margin: auto;
   width: 22px;
   height: 22px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.72 11.72 0 003.68.59 1 1 0 011 1v3.5a1 1 0 01-1 1A18 18 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.68 1 1 0 01-.24 1.01l-2.2 2.2z'/%3E%3C/svg%3E")
     no-repeat center / contain;
-}
 
-/* hover */
-#call-icon:hover {
-  background: rgba(255,255,255,0.08);
-}
-
-/* лёгкая живая анимация */
-#call-icon {
-  animation: call-float 4.5s ease-in-out infinite;
-}
-
-/* при наведении — стоп анимации и чуть больше контраста */
-#call-icon:hover {
-  background: rgba(255,255,255,0.1);
-  animation-play-state: paused;
-}
-
-/* микро-анимация иконки */
-#call-icon::before {
   transition: transform 0.25s ease;
+}
+
+/* Hover */
+#call-icon:hover {
+  background: #28b463;
+  border-color: #28b463;
+  animation-play-state: paused;
 }
 
 #call-icon:hover::before {
   transform: rotate(-8deg);
 }
 
-/* keyframes */
+/* Floating animation */
 @keyframes call-float {
   0%   { transform: translateY(0); }
   50%  { transform: translateY(-4px); }
   100% { transform: translateY(0); }
-}
-
-@media (max-width: 736px) {
-  #call-icon {
-    background: rgba(0,0,0,0.55);
-    border-color: rgba(0,0,0,0.55);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-  }
-
-  #call-icon:hover {
-    background: rgba(0,0,0,0.7);
-  }
 }
 
