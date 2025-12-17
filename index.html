@@ -618,13 +618,18 @@
       <input type="tel" name="phone" id="contact_phone" placeholder="+48 ___ ___ ___" autocomplete="tel" inputmode="tel" />
     </div>
 
-    <div class="field">
-      <label style="text-transform:none; letter-spacing:0; font-weight:500;">
-        <input type="checkbox" name="consent" value="yes" />
-        Wyrażam zgodę na kontakt telefoniczny w sprawie konsultacji.
-      </label>
-    </div>
+   <div class="field">
+  <div class="consent-row">
+    <input type="checkbox" id="consent" name="consent" value="yes" required />
+    <label for="consent" class="consent-label">
+      Wyrażam zgodę na kontakt telefoniczny w sprawie konsultacji.
+      <span class="consent-note">
+        <a href="privacy.html" target="_blank" rel="noopener">Polityka prywatności</a>
+      </span>
+    </label>
   </div>
+</div>
+
 
   <ul class="actions special">
     <li><input id="leadSubmit" type="submit" value="Oddzwońcie do mnie" class="primary" /></li>
@@ -632,6 +637,7 @@
 
   <p id="formMsg" style="text-align:center; font-size:0.85em; opacity:0.75; margin-top:0.6em; display:none;"></p>
 </form>
+
 
 </section>
 
@@ -708,7 +714,7 @@
     return url.searchParams.get(name) || "";
   }
 
-  // заполнить tracking сразу (не ждём DOMContentLoaded)
+  // Заполняем скрытые поля один раз
   (function () {
     const gclid = document.getElementById("gclid");
     const page  = document.getElementById("page_url");
@@ -727,24 +733,77 @@
     const form = document.getElementById("leadForm");
     const msg  = document.getElementById("formMsg");
     const btn  = document.getElementById("leadSubmit");
+    const consentEl = document.getElementById("consent"); // чекбокс с id="consent"
+	const phoneEl = document.getElementById("contact_phone");
+const rawPhone = (phoneEl?.value || "").trim();
+
+// чистим номер: оставляем только цифры
+let digits = rawPhone.replace(/\D/g, "");
+
+// допускаем +48 / 48 перед номером
+if (digits.startsWith("0048")) digits = digits.slice(4);
+if (digits.startsWith("48") && digits.length === 11) digits = digits.slice(2);
+
+// проверка: после нормализации должно быть ровно 9 цифр
+if (digits.length !== 9) {
+  if (msg) {
+    msg.style.display = "block";
+    msg.textContent = "Wpisz poprawny numer telefonu (PL), np. +48 514 168 747 lub 514 168 747.";
+  }
+  if (btn) btn.disabled = false;
+  if (phoneEl) phoneEl.focus();
+  return false;
+}
+
 
     if (!form) return false;
 
-    if (btn) btn.disabled = true;
-    if (msg) { msg.style.display = "block"; msg.textContent = "Wysyłanie…"; }
+    // Обязательное согласие
+    if (!consentEl || !consentEl.checked) {
+      if (msg) {
+        msg.style.display = "block";
+        msg.textContent = "Zaznacz zgodę na kontakt, aby wysłać formularz.";
+      }
+      return false;
+    }
 
+    if (btn) btn.disabled = true;
+    if (msg) {
+      msg.style.display = "block";
+      msg.textContent = "Wysyłanie…";
+    }
+
+	if (phoneEl) phoneEl.value = `+48${digits}`;
+
+    // Собираем данные формы
     const fd = new FormData(form);
 
-    const goThankYou = () => (window.location.href = "thank-you.html");
-    const t = setTimeout(goThankYou, 1200);
+    // Гарантируем ключи под твою таблицу (чтобы колонки совпадали)
+    const requiredKeys = ["name","phone","consent","source","gclid","page_url","referrer","ua"];
+    for (const k of requiredKeys) {
+      if (!fd.has(k)) fd.append(k, "");
+    }
 
-    fetch(ENDPOINT, { method: "POST", body: fd, mode: "no-cors" })
-      .catch(() => {})
-      .finally(() => { clearTimeout(t); goThankYou(); });
+    // Отправляем как в консоли: x-www-form-urlencoded
+    const body = new URLSearchParams();
+    for (const [k, v] of fd.entries()) body.append(k, v);
 
+    // Отправка + безопасный редирект
+    try {
+      fetch(ENDPOINT, {
+        method: "POST",
+        body,
+        mode: "no-cors",
+        keepalive: true,
+      });
+    } catch (err) {}
+
+    setTimeout(() => (window.location.href = "thank-you.html"), 900);
     return false;
   }
 </script>
+
+
 
 
 
@@ -753,4 +812,3 @@
 </body>
 
 </html>
-
