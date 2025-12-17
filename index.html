@@ -702,55 +702,53 @@
 	<script src="assets/js/main.js"></script>
 
 <script>
-  const ENDPOINT = "https://script.google.com/macros/s/AKfycbxOugk4BPu7URI-GF6WPyNnEeBL_bfvsLbHSEpg_CPM2SX7VCDXRCjtTzetP4LkBYNTKQ/exec";
+  window.addEventListener("DOMContentLoaded", () => {
+    const ENDPOINT = "https://script.google.com/macros/s/AKfycbxOugk4BPu7URI-GF6WPyNnEeBL_bfvsLbHSEpg_CPM2SX7VCDXRCjtTzetP4LkBYNTKQ/exec";
 
-  function getParam(name) {
-    const url = new URL(window.location.href);
-    return url.searchParams.get(name) || "";
-  }
-
-  // tracking values
-  document.getElementById("gclid").value = getParam("gclid");
-  document.getElementById("page_url").value = window.location.href;
-  document.getElementById("referrer").value = document.referrer || "";
-
-  const form = document.getElementById("leadForm");
-  const msg = document.getElementById("formMsg");
-  const submitBtn = form.querySelector('input[type="submit"]');
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    msg.style.display = "block";
-    msg.textContent = "Wysyłanie…";
-    if (submitBtn) submitBtn.disabled = true;
-
-    // ВАЖНО: Apps Script лучше принимает urlencoded
-    const fd = new FormData(form);
-    const body = new URLSearchParams();
-    for (const [k, v] of fd.entries()) body.append(k, v);
-
-    // Фолбэк: даже если fetch подвиснет — уйдём на thank-you
-    const fallback = setTimeout(() => {
-      window.location.href = "./thank-you.html";
-    }, 2500);
-
-    try {
-      await fetch(ENDPOINT, {
-        method: "POST",
-        mode: "no-cors", // <-- ключевой момент для GitHub Pages + Apps Script
-        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-        body: body.toString(),
-      });
-
-      clearTimeout(fallback);
-      window.location.href = "./thank-you.html";
-    } catch (err) {
-      // Даже при ошибке сети дадим человеку перейти, но покажем сообщение
-      clearTimeout(fallback);
-      msg.textContent = "Nie udało się wysłać. Spróbuj ponownie lub zadzwoń.";
-      if (submitBtn) submitBtn.disabled = false;
+    function getParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name) || "";
     }
+
+    const form = document.getElementById("leadForm");
+    const msg = document.getElementById("formMsg");
+
+    if (!form) {
+      console.error("leadForm not found");
+      return;
+    }
+
+    // tracking values
+    const gclidEl = document.getElementById("gclid");
+    const pageUrlEl = document.getElementById("page_url");
+    const refEl = document.getElementById("referrer");
+
+    if (gclidEl) gclidEl.value = getParam("gclid");
+    if (pageUrlEl) pageUrlEl.value = window.location.href;
+    if (refEl) refEl.value = document.referrer || "";
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      if (msg) {
+        msg.style.display = "block";
+        msg.textContent = "Wysyłanie…";
+      }
+
+      const fd = new FormData(form);
+
+      // ВАЖНО: no-cors — чтобы GitHub Pages мог отправить на Apps Script без CORS-ошибок.
+      fetch(ENDPOINT, {
+        method: "POST",
+        body: fd,
+        mode: "no-cors",
+      })
+      .catch(() => {})
+      .finally(() => {
+        // всегда ведём на thank-you
+        window.location.href = "thank-you.html";
+      });
+    });
   });
 </script>
 
@@ -760,3 +758,4 @@
 </body>
 
 </html>
+
