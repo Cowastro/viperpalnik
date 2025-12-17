@@ -4908,8 +4908,37 @@ html, body { overflow-x: hidden; }
   100% { transform: translateY(0); }
 }
 
-#kontakt { position: relative; z-index: 9999; }
-#leadSubmit { position: relative; z-index: 10000; }
-#footer:before, #footer:after,
-#kontakt:before, #kontakt:after { pointer-events: none; }
+/* Consent checkbox - Massively friendly */
+.consent-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.consent-row input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.2rem;
+  cursor: pointer;
+}
+
+.consent-label {
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.consent-note {
+  display: block;
+  font-size: 0.85em;
+  opacity: 0.85;
+  margin-top: 0.25rem;
+}
+
+.consent-note a {
+  text-decoration: underline;
+}
+
 
