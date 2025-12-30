@@ -732,102 +732,125 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 
-	<script>
-		const ENDPOINT = "https://script.google.com/macros/s/AKfycby7jPuGMnNMIYhFqUNsvu_Mzc5qy1aon0wnE15kcvUEQbHYStpkgCqz7_mEiDaev50BGA/exec";
+		<script>
+  // ✅ отправка лидов на ваш домен (PHP)
+  const ENDPOINT = "https://zeslonca.eu/api/lead-webhook.php?token=viper_fortuna_2025";
 
-		function getParam(name) {
-			const url = new URL(window.location.href);
-			return url.searchParams.get(name) || "";
-		}
+  function getParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name) || "";
+  }
 
-		// Заполняем скрытые поля один раз
-		(function () {
-			const gclid = document.getElementById("gclid");
-			const page = document.getElementById("page_url");
-			const ref = document.getElementById("referrer");
-			const ua = document.getElementById("ua");
+  // Заполняем скрытые поля один раз
+  (function fillHiddenOnce() {
+    const gclid = document.getElementById("gclid");
+    const page  = document.getElementById("page_url");
+    const ref   = document.getElementById("referrer");
+    const ua    = document.getElementById("ua");
 
-			if (gclid) gclid.value = getParam("gclid");
-			if (page) page.value = window.location.href;
-			if (ref) ref.value = document.referrer || "";
-			if (ua) ua.value = navigator.userAgent || "";
-		})();
+    if (gclid) gclid.value = getParam("gclid");
+    if (page)  page.value  = window.location.href;
+    if (ref)   ref.value   = document.referrer || "";
+    if (ua)    ua.value    = navigator.userAgent || "";
+  })();
 
-		function viperSubmit(e) {
-			e.preventDefault();
+  function normalizePlPhone(raw) {
+    let digits = (raw || "").trim().replace(/\D/g, "");
 
-			const form = document.getElementById("leadForm");
-			const msg = document.getElementById("formMsg");
-			const btn = document.getElementById("leadSubmit");
-			const consentEl = document.getElementById("consent"); // чекбокс с id="consent"
-			const phoneEl = document.getElementById("contact_phone");
-			const rawPhone = (phoneEl?.value || "").trim();
+    if (digits.startsWith("0048")) digits = digits.slice(4);
+    if (digits.startsWith("48") && digits.length === 11) digits = digits.slice(2);
 
-			// чистим номер: оставляем только цифры
-			let digits = rawPhone.replace(/\D/g, "");
+    // Должно остаться ровно 9 цифр
+    if (digits.length !== 9) return null;
 
-			// допускаем +48 / 48 перед номером
-			if (digits.startsWith("0048")) digits = digits.slice(4);
-			if (digits.startsWith("48") && digits.length === 11) digits = digits.slice(2);
+    return "+48" + digits;
+  }
 
-			// проверка: после нормализации должно быть ровно 9 цифр
-			if (digits.length !== 9) {
-				if (msg) {
-					msg.style.display = "block";
-					msg.textContent = "Wpisz poprawny numer telefonu (PL), np. +48 514 168 747 lub 514 168 747.";
-				}
-				if (btn) btn.disabled = false;
-				if (phoneEl) phoneEl.focus();
-				return false;
-			}
+  function showMsg(msgEl, text) {
+    if (!msgEl) return;
+    msgEl.style.display = "block";
+    msgEl.textContent = text;
+  }
 
+  async function viperSubmit(e) {
+    e.preventDefault();
 
-			if (!form) return false;
+    const form = document.getElementById("leadForm");
+    const msg  = document.getElementById("formMsg");
+    const btn  = document.getElementById("leadSubmit");
 
-			// Обязательное согласие
-			if (!consentEl || !consentEl.checked) {
-				if (msg) {
-					msg.style.display = "block";
-					msg.textContent = "Zaznacz zgodę na kontakt, aby wysłać formularz.";
-				}
-				return false;
-			}
+    const consentEl = document.getElementById("consent");
+    const phoneEl   = document.getElementById("contact_phone");
 
-			if (btn) btn.disabled = true;
-			if (msg) {
-				msg.style.display = "block";
-				msg.textContent = "Wysyłanie…";
-			}
+    if (!form) return false;
 
-			if (phoneEl) phoneEl.value = `+48${digits}`;
+    // 1) Consent обязателен
+    if (!consentEl || !consentEl.checked) {
+      showMsg(msg, "Zaznacz zgodę na kontakt, aby wysłać formularz.");
+      return false;
+    }
 
-			// Собираем данные формы
-			const fd = new FormData(form);
+    // 2) Нормализуем телефон
+    const normalizedPhone = normalizePlPhone(phoneEl?.value || "");
+    if (!normalizedPhone) {
+      showMsg(msg, "Wpisz poprawny numer telefonu (PL), np. +48 514 168 747 lub 514 168 747.");
+      if (phoneEl) phoneEl.focus();
+      return false;
+    }
 
-			// Гарантируем ключи под твою таблицу (чтобы колонки совпадали)
-			const requiredKeys = ["name", "phone", "consent", "source", "gclid", "page_url", "referrer", "ua"];
-			for (const k of requiredKeys) {
-				if (!fd.has(k)) fd.append(k, "");
-			}
+    // 3) UI state
+    if (btn) btn.disabled = true;
+    showMsg(msg, "Wysyłanie…");
 
-			// Отправляем как в консоли: x-www-form-urlencoded
-			const body = new URLSearchParams();
-			for (const [k, v] of fd.entries()) body.append(k, v);
+    // 4) Подготовка данных
+    if (phoneEl) phoneEl.value = normalizedPhone;
 
-			// Отправка + безопасный редирект
-			try {
-				fetch(ENDPOINT, {
-					method: "POST",
-					body,
-					mode: "no-cors",
-					keepalive: true,
-				});
-			} catch (err) { }
+    const fd = new FormData(form);
 
-			setTimeout(() => (window.location.href = "thank-you.html"), 900);
-			return false;
-		}
-	</script>
+    // гарантируем ключи
+    const requiredKeys = ["name", "phone", "consent", "source", "gclid", "page_url", "referrer", "ua"];
+    for (const k of requiredKeys) {
+      if (!fd.has(k)) fd.append(k, "");
+    }
+
+    // отправляем как application/x-www-form-urlencoded
+    const body = new URLSearchParams();
+    for (const [k, v] of fd.entries()) body.append(k, v);
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+        body,
+        // keepalive можно оставить (полезно, если юзер закрывает вкладку)
+        keepalive: true,
+      });
+
+      // Если сервер вернул не 2xx — считаем ошибкой
+      if (!res.ok) throw new Error("http_" + res.status);
+
+      // Ждем JSON { ok: true }
+      let data = null;
+      try {
+        data = await res.json();
+      } catch (_) {
+        // если вдруг сервер вернул не JSON
+        throw new Error("bad_json");
+      }
+
+      if (data && data.ok) {
+        window.location.href = "thank-you.html";
+        return false;
+      }
+
+      throw new Error(data?.error || "unknown_error");
+    } catch (err) {
+      showMsg(msg, "Nie udało się wysłać formularza. Spróbuj ponownie lub zadzwoń: +48 459 567 337.");
+      if (btn) btn.disabled = false;
+      return false;
+    }
+  }
+</script>
 
 
 
@@ -835,5 +858,6 @@
 
 
 </html>
+
 
 
