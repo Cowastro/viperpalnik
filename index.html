@@ -957,45 +957,58 @@
 
 <script>
 (function () {
-  const KEY = "cookie_consent_v1"; // yes / no
+  const KEY = "cookie_consent_v1"; // yes | no
   const consent = localStorage.getItem(KEY);
-
-  // если уже выбрали — не показываем баннер
-  if (consent === "yes") {
-    if (typeof loadAnalytics === "function") loadAnalytics();
-    return;
-  }
-  if (consent === "no") return;
 
   const banner = document.getElementById("cookie-banner");
   const yesBtn = document.getElementById("cookie-yes");
   const noBtn  = document.getElementById("cookie-no");
 
-  if (banner) banner.style.display = "block";
+  // 👉 если уже принято
+  if (consent === "yes") {
+    if (typeof loadAnalytics === "function") loadAnalytics();
+    return;
+  }
 
+  // 👉 если отказ
+  if (consent === "no") {
+    return;
+  }
+
+  // 👉 показываем баннер
+  if (banner) {
+    banner.style.display = "block";
+    document.body.classList.add("cookie-banner-open");
+  }
+
+  // ✅ TAK
   if (yesBtn) {
     yesBtn.addEventListener("click", function () {
       localStorage.setItem(KEY, "yes");
       if (banner) banner.style.display = "none";
+      document.body.classList.remove("cookie-banner-open");
       if (typeof loadAnalytics === "function") loadAnalytics();
     });
   }
 
+  // ❌ NIE
   if (noBtn) {
     noBtn.addEventListener("click", function () {
       localStorage.setItem(KEY, "no");
       if (banner) banner.style.display = "none";
-      // GA не грузим
+      document.body.classList.remove("cookie-banner-open");
     });
   }
 })();
 </script>
 
 
+
 </body>
 
 
 </html>
+
 
 
 
