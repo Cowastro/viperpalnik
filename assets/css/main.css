@@ -4980,4 +4980,49 @@ body .post.featured ul li {
   text-align: left !important;
   margin-bottom: 0.5rem;
 }
+#cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(20, 20, 20, 0.95);
+  color: #fff;
+  z-index: 9999;
+  font-size: 0.9rem;
+}
+
+#cookie-banner .cookie-box {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+#cookie-banner p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+#cookie-banner a {
+  color: #2ecc71;
+  text-decoration: underline;
+}
+
+#cookie-banner .cookie-actions button {
+  background: #2ecc71;
+  border: none;
+  color: #000;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#cookie-banner .cookie-actions button:hover {
+  opacity: 0.9;
+}
+
 
