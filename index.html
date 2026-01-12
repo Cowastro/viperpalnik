@@ -40,6 +40,8 @@
       "@id": "https://viperpalnik.pl/#organization",
       "name": "HEATING Sp. z o.o.",
       "url": "https://viperpalnik.pl/",
+      "logo": "https://viperpalnik.pl/images/logo.png",
+      "image": "https://viperpalnik.pl/images/logo.png",
       "email": "kontakt@viperpalnik.pl",
       "telephone": "+48 459 567 337",
       "address": {
@@ -54,10 +56,12 @@
       ]
     },
     {
-      "@type": "LocalBusiness",
+      "@type": ["LocalBusiness","HVACBusiness"],
       "@id": "https://viperpalnik.pl/#localbusiness",
       "name": "VIPER – palniki pelletowe",
       "url": "https://viperpalnik.pl/",
+      "logo": "https://viperpalnik.pl/images/logo.png",
+      "image": "https://viperpalnik.pl/images/logo.png",
       "telephone": "+48 459 567 337",
       "email": "kontakt@viperpalnik.pl",
       "address": {
@@ -71,6 +75,16 @@
         "@type": "Country",
         "name": "Polska"
       },
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Modernizacja kotłowni na pellet (bez wymiany kotła)"
+          },
+          "areaServed": "PL"
+        }
+      ],
       "parentOrganization": {
         "@id": "https://viperpalnik.pl/#organization"
       }
@@ -80,6 +94,9 @@
       "@id": "https://viperpalnik.pl/#product-viper",
       "name": "VIPER – palnik pelletowy",
       "description": "Palnik pelletowy do modernizacji kotłów po ekogroszku oraz kotłów zasypowych (ręczna podaż) — bez wymiany kotła. Modulacja od 10% mocy, nowoczesna automatyka, montaż i uruchomienie w całej Polsce.",
+      "image": [
+        "https://viperpalnik.pl/images/viper_1.jpg"
+      ],
       "brand": {
         "@type": "Brand",
         "name": "VIPER"
@@ -96,6 +113,7 @@
   ]
 }
 </script>
+
 	
 
 </head>
@@ -927,6 +945,7 @@
 
 
 </html>
+
 
 
 
