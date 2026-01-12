@@ -939,12 +939,53 @@
   }
 </script>
 
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display:none;">
+  <div class="cookie-box">
+    <p>
+      Ta strona wykorzystuje pliki cookies w celach statystycznych i funkcjonalnych (np. Google Analytics).
+      Zgoda jest dobrowolna i możesz ją wycofać, usuwając dane przeglądarki.
+      <a href="privacy.html" target="_blank" rel="noopener">Polityka prywatności</a>
+    </p>
+    <div class="cookie-actions">
+      <button id="cookie-accept" type="button">Akceptuję</button>
+    </div>
+  </div>
+</div>
+
+	<script>
+(function () {
+  const KEY = "cookie_consent_v1";
+  const banner = document.getElementById("cookie-banner");
+  const acceptBtn = document.getElementById("cookie-accept");
+
+  const consent = localStorage.getItem(KEY);
+
+  // Если уже согласие было — грузим GA сразу
+  if (consent === "accepted") {
+    if (typeof loadAnalytics === "function") loadAnalytics();
+    return;
+  }
+
+  // Иначе показываем баннер
+  if (banner) banner.style.display = "block";
+
+  if (acceptBtn) {
+    acceptBtn.addEventListener("click", function () {
+      localStorage.setItem(KEY, "accepted");
+      if (banner) banner.style.display = "none";
+      if (typeof loadAnalytics === "function") loadAnalytics();
+    });
+  }
+})();
+</script>
 
 
 </body>
 
 
 </html>
+
 
 
 
