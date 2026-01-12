@@ -953,28 +953,37 @@
   </div>
 </div>
 
-	<script>
+<script>
 (function () {
-  const KEY = "cookie_consent_v1";
-  const banner = document.getElementById("cookie-banner");
-  const acceptBtn = document.getElementById("cookie-accept");
-
+  const KEY = "cookie_consent_v1"; // yes / no
   const consent = localStorage.getItem(KEY);
 
-  // Если уже согласие было — грузим GA сразу
-  if (consent === "accepted") {
+  // если уже выбрали — не показываем баннер
+  if (consent === "yes") {
     if (typeof loadAnalytics === "function") loadAnalytics();
     return;
   }
+  if (consent === "no") return;
 
-  // Иначе показываем баннер
+  const banner = document.getElementById("cookie-banner");
+  const yesBtn = document.getElementById("cookie-yes");
+  const noBtn  = document.getElementById("cookie-no");
+
   if (banner) banner.style.display = "block";
 
-  if (acceptBtn) {
-    acceptBtn.addEventListener("click", function () {
-      localStorage.setItem(KEY, "accepted");
+  if (yesBtn) {
+    yesBtn.addEventListener("click", function () {
+      localStorage.setItem(KEY, "yes");
       if (banner) banner.style.display = "none";
       if (typeof loadAnalytics === "function") loadAnalytics();
+    });
+  }
+
+  if (noBtn) {
+    noBtn.addEventListener("click", function () {
+      localStorage.setItem(KEY, "no");
+      if (banner) banner.style.display = "none";
+      // GA не грузим
     });
   }
 })();
@@ -985,6 +994,7 @@
 
 
 </html>
+
 
 
 
